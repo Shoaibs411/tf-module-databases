@@ -21,6 +21,7 @@ resource "aws_docdb_subnet_group" "docdb" {
   }
 }
 
+
 # Created DocDB Cluster Instances
 resource "aws_docdb_cluster_instance" "cluster_instances" {
   count              = 1
