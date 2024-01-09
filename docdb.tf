@@ -1,7 +1,7 @@
 # Provisioning Document DB Cluster
 resource "aws_docdb_cluster" "docdb" {
   cluster_identifier      = "roboshop-${var.ENV}-docdb"
-  engine                  = "docdb"
+  engine                  = var.DOCDB_ENGINE
   master_username         = "admin1"
   master_password         = "roboshop1"
 #   backup_retention_period = 5                    # Commented to avoid backups in Lab
