@@ -1,7 +1,7 @@
 resource "null_resource" "schema" {
 
 # This makes sure that this null_resource will only be executed post the creation of the RDS only
-    depends_on = [aws_db_instance.docdb, aws_docdb_cluster_instance.cluster_instances]
+    depends_on = [aws_docdb_cluster.docdb, aws_docdb_cluster_instance.cluster_instances]
 
      provisioner "local-exec" {
         command = <<EOF
@@ -11,9 +11,9 @@ resource "null_resource" "schema" {
             unzip -o mongodb.zip
             cd mysql-main
             ls -ltr
-            mongo --ssl --host ${aws_db_instance.docdb.endpoint}:27017 --sslCAFile /tmp/global-bundle.pem --username admin1 --password roboshop1 < catalogue.js
+            mongo --ssl --host ${aws_docdb_cluster.docdb.endpoint}:27017 --sslCAFile /tmp/global-bundle.pem --username admin1 --password roboshop1 < catalogue.js
             
-            mongo --ssl --host ${aws_db_instance.docdb.endpoint}:27017 --sslCAFile /tmp/global-bundle.pem --username admin1 --password roboshop1 < users.js
+            mongo --ssl --host ${aws_docdb_cluster.docdb.endpoint}:27017 --sslCAFile /tmp/global-bundle.pem --username admin1 --password roboshop1 < users.js
 
         EOF
     } 
